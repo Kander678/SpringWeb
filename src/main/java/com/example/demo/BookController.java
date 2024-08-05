@@ -3,7 +3,10 @@ package com.example.demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Book;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/books")
@@ -12,36 +15,36 @@ public class BookController {
     @Autowired
     private BookRepository bookRepository;
 
-//    @PostConstruct
-//    public void init() {
-//        bookRepository.save(new Book(1, "Book 1", "Author 1"));
-//        bookRepository.save(new Book(2, "Book 2", "Author 2"));
-//    }
-
     //CREATE
     @PostMapping
-    public BookEntity addBook(@RequestBody BookEntity book) {
-        return bookRepository.save(book);
+    public BookDTO addBook(@RequestBody BookDTO bookDTO) {
+
+        BookEntity bookEntity=BookMapper.toEntity(bookDTO);
+        BookEntity savedBookEntity=bookRepository.save(bookEntity);
+        return BookMapper.toDTO(savedBookEntity);
     }
 
     // READ
     @GetMapping("/{id}")
-    public BookEntity getBook(@PathVariable int id) {
-        return bookRepository.findById(id).orElse(null);
+    public BookDTO getBook(@PathVariable int id) {
+        Optional<BookEntity> bookEntity=bookRepository.findById(id);
+        return bookEntity.map(BookMapper::toDTO).orElse(null);
     }
 
     // UPDATE
     @PutMapping("/{id}")
-    public BookEntity updateBook(@PathVariable int id, @RequestBody BookEntity updatedBook) {
+    public BookDTO updateBook(@PathVariable int id, @RequestBody BookEntity updatedBook) {
         BookEntity book = bookRepository.findById(id).orElse(null);
 
         if (book != null) {
-            book.setTitle(updatedBook.getTitle());
-            book.setAuthor(updatedBook.getAuthor());
-            bookRepository.save(book);
+            BookEntity bookEntity= book;
+            bookEntity.setAuthor(updatedBook.getAuthor());
+            bookEntity.setTitle(updatedBook.getTitle());
+            BookEntity savedBookEntity=bookRepository.save(bookEntity);
+            return BookMapper.toDTO(savedBookEntity);
         }
 
-        return book;
+        return null;
     }
     //DELETE
     @DeleteMapping("/{id}")
@@ -56,7 +59,10 @@ public class BookController {
 
     //ReadAll
     @GetMapping
-    public List<BookEntity> getBooks() {
-        return bookRepository.findAll();
+    public List<BookDTO> getBooks() {
+        List<BookEntity> books = bookRepository.findAll();
+        return books.stream()
+                .map(BookMapper::toDTO)
+                .collect(Collectors.toList());
     }
 }
