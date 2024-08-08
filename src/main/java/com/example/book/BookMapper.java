@@ -1,6 +1,4 @@
-package com.example.demo;
-
-import java.awt.print.Book;
+package com.example.book;
 
 public class BookMapper {
 

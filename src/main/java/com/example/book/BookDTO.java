@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.book;
 
 public class BookDTO {
     private int id;

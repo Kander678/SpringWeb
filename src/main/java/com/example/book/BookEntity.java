@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.book;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,8 +19,7 @@ public class BookEntity {
 
     public BookEntity() {}
 
-    public BookEntity(int id, String title, String author) {
-        this.id = id;
+    public BookEntity(String title, String author) {
         this.title = title;
         this.author = author;
     }
