@@ -1,5 +1,6 @@
 package com.example.book;
 
+// TODO - usun mapper, a metody dodaj do odpowiednich POJOs
 public class BookMapper {
 
     public static BookDTO toDTO(BookEntity book) {

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+// TODO uzywaj formatowania z intellij na kazdym pliku na ktorym pracujesz ( tzw. linter, w zespole moga miec swoje formatowania i beda sie czepiac o to ) - Ctrl+Alt+L
 @RestController
 @RequestMapping("/books")
 public class BookController {
@@ -33,12 +34,16 @@ public class BookController {
     // UPDATE
     @PutMapping("/{id}")
     public BookDTO updateBook(@PathVariable int id, @RequestBody BookEntity updatedBook) {
+        /* TODO - findById zwraca optionala, nie rob tak, ze jak dostajes optionala i go nie ma to zwracasz nulla,
+         bo to przeczy idei optionali. Zamiast orElse(null) zrob .map() i tam logike z ifa i wypadaloby zrobic sensowny return zamiast nulla.
+         */
         BookEntity book = bookRepository.findById(id).orElse(null);
 
         if (book != null) {
             BookEntity bookEntity= book;
             bookEntity.setAuthor(updatedBook.getAuthor());
             bookEntity.setTitle(updatedBook.getTitle());
+            // TODO dodaj relacje w bazie danych miedzy ksiazka a autorem
             BookEntity savedBookEntity=bookRepository.save(bookEntity);
             return BookMapper.toDTO(savedBookEntity);
         }

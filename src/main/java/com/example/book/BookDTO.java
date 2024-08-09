@@ -1,5 +1,6 @@
 package com.example.book;
 
+// TODO poczytaj o lomboku - tutaj mozna uzyc @Data lub @Value, albo po prostu @Getter i @Setter
 public class BookDTO {
     private int id;
     private String title;

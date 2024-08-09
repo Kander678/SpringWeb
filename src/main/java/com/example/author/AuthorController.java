@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+// TODO uzywaj formatowania z intellij na kazdym pliku na ktorym pracujesz ( tzw. linter, w zespole moga miec swoje formatowania i beda sie czepiac o to ) - Ctrl+Alt+L
+// TODO uzwaj optymalizacji importow: Ctrl+Alt+O
 @RestController
 @RequestMapping("/authors")
 public class AuthorController {
@@ -36,6 +38,7 @@ public class AuthorController {
     // UPDATE
     @PutMapping("/{id}")
     public AuthorDTO updateAuthor(@PathVariable int id, @RequestBody AuthorEntity updatedAuthor) {
+        // TODO - to samo - uzywaj optionale
         AuthorEntity author = authorRepository.findById(id).orElse(null);
 
         if (author != null) {

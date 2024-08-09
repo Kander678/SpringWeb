@@ -3,6 +3,8 @@ package com.example.author;
 import com.example.book.BookDTO;
 import com.example.book.BookEntity;
 
+// TODO - usun mapper, a metody dodaj do odpowiednich POJOs
+// TODO - optymalizacji importow
 public class AuthorMapper {
 
     public static AuthorDTO toDTO(AuthorEntity author){

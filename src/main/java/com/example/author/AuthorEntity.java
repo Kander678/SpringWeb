@@ -2,6 +2,7 @@ package com.example.author;
 
 import jakarta.persistence.*;
 
+// TODO poczytaj o lomboku - tutaj mozna uzyc @Data lub @Value, albo po prostu @Getter i @Setter
 @Entity
 @Table(name = "authors")
 public class AuthorEntity {
