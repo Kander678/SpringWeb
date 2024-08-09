@@ -31,6 +31,7 @@ public class AuthorController {
 
     @GetMapping("/{id}")
     public AuthorDTO getAuthor(@PathVariable int id) {
+        // TODO zwracaj ksiazki danego autoras
         Optional<AuthorEntity> authorEntity=authorRepository.findById(id);
         return authorEntity.map(AuthorMapper::toDTO).orElse(null);
     }
@@ -63,6 +64,7 @@ public class AuthorController {
         }
     }
 
+    // TODO endpoint bez sensu, bo zwracasz wszystkie ksiazki autorow, ale jesli bedzie relacja miedzy ksiazkami i autorami to nie beda mogly istniec ksiazki bez autorow lub z autorami, ktorzy nie istnieja w bazie autorow - w tej formie nie ma sensu ten endpoint
     //ReadAll
     @GetMapping
     public List<AuthorDTO> getBooks() {
